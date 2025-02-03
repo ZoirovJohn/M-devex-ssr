@@ -1,0 +1,25 @@
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+}
+
+.frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;    
+    background-color: white;
+}
+
+.main-frame {
+    position: relative;
+    width: 1440px;
+    height: 1312px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgb(139, 133, 126);
+}
