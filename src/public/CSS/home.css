@@ -1,0 +1,97 @@
+.home-container {
+  position: relative;
+  width: auto;
+  height: auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background: linear-gradient(-45deg, #110303f0, #a75428, #011c1afc, #7a6868); */
+  background: #222121;
+}
+
+.home-container a {
+  text-decoration: none;
+  color: #000000;
+}
+
+.home-container .nav-item a {
+  color: #e3c08d;
+}
+
+.home-container .nav-item a.disabled {
+  color: #898071;
+}
+
+.home-container .navigation-menu {
+  position: relative;
+  z-index: 10000;
+  color: #efefee;
+  font-size: 40px;
+  font-family: monospace;
+  margin-bottom: 50px;
+}
+
+.home-container .animation-frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 55px;
+}
+
+.home-container .animation-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  padding-bottom: 40%;
+}
+
+/** Layered Animation **/
+
+.home-container .layered-animations {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1100px;
+  height: 550px;
+}
+
+.home-container .layered-animations .shape {
+  position: absolute;
+  top: 50%;
+  overflow: visible;
+  width: 280px;
+  height: 280px;
+  margin-top: -140px;
+  stroke: transparent;
+  stroke-width: 1px;
+  fill: url(#shapesGradient);
+}
+
+@media (min-width: 740px) {
+  .layered-animations .shape {
+    stroke-width: 0.5px;
+  }
+}
+
+.home-container .layered-animations .small.shape {
+  width: 64px;
+  height: 64px;
+  margin-top: -32px;
+  stroke: currentColor;
+  fill: currentColor;
+  color: #d53a3a;
+}
+
+.home-container .layered-animations .x-small.shape {
+  width: 32px;
+  height: 32px;
+  margin-top: -16px;
+  stroke: currentColor;
+  fill: currentColor;
+  color: antiquewhite
+}

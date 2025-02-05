@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { MemberType } from "../libs/enums/member.enum";
+import { MemberStatus, MemberType } from "../libs/enums/member.enum";
 
 const memberSchema = new Schema(
   {
@@ -9,14 +9,26 @@ const memberSchema = new Schema(
       default: MemberType.USER,
     },
 
+    memberStatus: {
+      type: String,
+      enum: MemberStatus,
+      default: MemberStatus.ACTIVE,
+    },
+
     memberNick: {
       type: String,
       index: { unique: true, sparse: true },
       required: true,
     },
 
-    memberAddress: {
+    memberEmail: {
       type: String,
+    },
+
+    memberPassword: {
+      type: String,
+      select: false, // db by default obermasn
+      required: true,
     },
   },
   { timestamps: true }
