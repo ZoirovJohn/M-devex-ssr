@@ -36,13 +36,13 @@ adminController.postSignup = async (req: OwnerRequest, res: Response) => {
     newMember.memberType = MemberType.OWNER;
     console.log("member:", newMember);
 
-    // const result = await memberService.postSignup(newMember);
-    // console.log("22");
+    const result = await memberService.postSignup(newMember);
+    console.log("22");
 
     // req.session.member = result;
     req.session.save(function () {
       // res.redirect("/admin");
-      res.send("posted")
+      res.json(result)
     });
   } catch (err) {
     console.log("Error, postSignup:", err);

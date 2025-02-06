@@ -13,10 +13,10 @@ class MemberService {
   public async postSignup(input: MemberInput): Promise<Member> {
     console.log("member service postsignup");
     
-    const exist = await this.memberModel
-      .findOne({ memberType: "OWNER" })
-      .exec();
-    if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
+    // const exist = await this.memberModel
+    //   .findOne({ memberType: "OWNER" })
+    //   .exec();
+    // if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
 
     const salt = await bcrypt.genSalt();
     input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
