@@ -21,3 +21,5 @@ function validateSignupFrom() {
     return false;
   }
 }
+
+return true;

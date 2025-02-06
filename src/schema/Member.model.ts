@@ -23,6 +23,8 @@ const memberSchema = new Schema(
 
     memberEmail: {
       type: String,
+      index: { unique: true, sparse: true },
+      required: true,
     },
 
     memberPassword: {

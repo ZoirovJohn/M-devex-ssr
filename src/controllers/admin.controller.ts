@@ -4,7 +4,6 @@ import MemberService from "../models/Member.service";
 import { Member, MemberInput, OwnerRequest } from "../libs/types/member";
 import Errors, { Message } from "../libs/utils/Errors";
 import { MemberType } from "../libs/enums/member.enum";
-console.log("admin controller");
 const memberService = new MemberService();
 const adminController: T = {};
 
@@ -32,15 +31,21 @@ adminController.postSignup = async (req: OwnerRequest, res: Response) => {
   try {
     console.log("postSignup");
     const newMember: MemberInput = req.body;
-    newMember.memberType = MemberType.OWNER;
-    const result = await memberService.postSignup(newMember);
+    console.log("req,body:", req.body); 
 
-    req.session.member = result;
+    newMember.memberType = MemberType.OWNER;
+    console.log("member:", newMember);
+
+    // const result = await memberService.postSignup(newMember);
+    // console.log("22");
+
+    // req.session.member = result;
     req.session.save(function () {
-      res.redirect("/admin");
+      // res.redirect("/admin");
+      res.send("posted")
     });
   } catch (err) {
-    console.log("Error, processSignup:", err);
+    console.log("Error, postSignup:", err);
     const message =
       err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
     res.send(

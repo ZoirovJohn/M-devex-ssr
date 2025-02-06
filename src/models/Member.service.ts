@@ -11,6 +11,8 @@ class MemberService {
   }
 
   public async postSignup(input: MemberInput): Promise<Member> {
+    console.log("member service postsignup");
+    
     const exist = await this.memberModel
       .findOne({ memberType: "OWNER" })
       .exec();
