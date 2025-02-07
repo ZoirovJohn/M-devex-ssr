@@ -4,6 +4,7 @@ import MemberService from "../models/Member.service";
 import { Member, MemberInput, OwnerRequest } from "../libs/types/member";
 import Errors, { Message } from "../libs/utils/Errors";
 import { MemberType } from "../libs/enums/member.enum";
+
 const memberService = new MemberService();
 const adminController: T = {};
 
@@ -27,22 +28,29 @@ adminController.getSignup = (req: Request, res: Response) => {
   }
 };
 
+adminController.getLogin = (req: Request, res: Response) => {
+  try {
+    console.log("getLogin");
+    res.render("login");
+  } catch (err) {
+    console.log("Error, getLogin:", err);
+    res.redirect("/admin");
+  }
+};
+
 adminController.postSignup = async (req: OwnerRequest, res: Response) => {
   try {
     console.log("postSignup");
     const newMember: MemberInput = req.body;
-    console.log("req,body:", req.body); 
-
     newMember.memberType = MemberType.OWNER;
     console.log("member:", newMember);
 
     const result = await memberService.postSignup(newMember);
-    console.log("22");
 
-    // req.session.member = result;
+    req.session.member = result;
     req.session.save(function () {
       // res.redirect("/admin");
-      res.json(result)
+      res.json(result);
     });
   } catch (err) {
     console.log("Error, postSignup:", err);

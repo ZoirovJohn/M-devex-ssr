@@ -1,14 +1,14 @@
 console.log("Signup frontend javascript file");
 
-function validateSignupFrom() {
+function validateSignupForm() {
   const memberNick = $(".member-nick").val(),
-    memberPhone = $(".member-phone").val(),
+    memberEmail = $(".member-email").val(),
     memberPassword = $(".member-password").val(),
     confirmPassword = $(".confirm-password").val();
 
   if (
     memberNick === "" ||
-    memberPhone === "" ||
+    memberEmail === "" ||
     memberPassword === "" ||
     confirmPassword === ""
   ) {
@@ -20,6 +20,5 @@ function validateSignupFrom() {
     alert("Password differs, please check!");
     return false;
   }
+  return true;
 }
-
-return true;
