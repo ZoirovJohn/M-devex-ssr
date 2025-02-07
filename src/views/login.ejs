@@ -3,7 +3,43 @@
 <link rel="stylesheet" type="text/css" href="/css/login.css" />
 
 <body>
-    <form action="/admin/login" method="POST"></form>
+  <form class="login-container" action="/admin/login" method="POST">
+    <div class="login-frame">
+      <div class="login-top">
+        <span>Enter</span>
+        <div>Go back <a href="/admin" style="color: #483ed7">Home</a></div>
+        <p>
+          Not registered yet?
+          <a href="/admin/signup" style="color: #483ed7">Signup</a>
+        </p>
+      </div>
+      <div class="login-input-frame">
+        <div class="login-input-container">
+          <label>Owner *</label>
+          <input
+            type="text"
+            name="memberNick"
+            class="memberNick"
+            placeholder="Username"
+            value=""
+            required
+          />
+        </div>
+        <div class="login-input-container">
+          <label>Password *</label>
+          <input
+            type="password"
+            name="memberPassword"
+            class="memberPassword"
+            placeholder="Password"
+            value=""
+            required
+          />
+        </div>
+      </div>
+      <button class="login-btn btn" name="login" type="submit">Login</button>
+    </div>
+  </form>
 </body>
 
 <%- include('includes/footer') %>

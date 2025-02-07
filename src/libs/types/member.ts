@@ -27,6 +27,14 @@ export interface LoginInput {
   memberPassword: string;
 }
 
+export interface MemberUpdateInput {
+  _id: ObjectId;
+  memberStatus?: MemberStatus;
+  memberNick?: string;
+  memberEmail?: string;
+  memberPassword?: string;
+}
+
 export interface OwnerRequest extends Request {
   member: Member;
   session: Session & { member: Member };
