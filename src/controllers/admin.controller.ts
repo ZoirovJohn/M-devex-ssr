@@ -54,8 +54,8 @@ adminController.postSignup = async (req: OwnerRequest, res: Response) => {
 
     req.session.member = result;
     req.session.save(function () {
-      // res.redirect("/admin");
-      res.json(result);
+      res.redirect("/admin/user/all");
+      // res.json(result);
     });
   } catch (err) {
     console.log("Error, postSignup:", err);
@@ -106,6 +106,7 @@ adminController.getUsers = async (req: Request, res: Response) => {
   try {
     console.log("getUsers");
     const result = await memberService.getUsers();
+    console.log("users:", result);
 
     res.render("users", { users: result });
   } catch (err) {

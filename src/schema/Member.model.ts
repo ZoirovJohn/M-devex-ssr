@@ -27,6 +27,12 @@ const memberSchema = new Schema(
       required: true,
     },
 
+    memberCodeLink: {
+      type: String,
+      index: { unique: true, sparse: true },
+      required: true,
+    },
+
     memberPassword: {
       type: String,
       select: false, // db by default obermasn
