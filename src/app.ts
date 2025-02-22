@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import ConnectMongoDB from "connect-mongodb-session";
 import { T } from "./libs/types/common";
+import routerMember from "./router-member";
 
 const MongoDBStore = ConnectMongoDB(session);
 const store = new MongoDBStore({
@@ -43,5 +44,6 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use("/admin", routerAdmin);
+app.use("/member", routerMember);
 
 export default app;

@@ -1,5 +1,10 @@
 import Errors, { HttpCode, Message } from "../libs/Errors";
-import { LoginInput, Member, MemberInput, MemberUpdateInput } from "../libs/types/member";
+import {
+  LoginInput,
+  Member,
+  MemberInput,
+  MemberUpdateInput,
+} from "../libs/types/member";
 import MemberModel from "../schema/Member.model";
 import * as bcrypt from "bcryptjs";
 import { MemberType } from "../libs/enums/member.enum";
@@ -72,6 +77,40 @@ class MemberService {
     if (!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
 
     return result;
+  }
+
+  public async memberPostSignup(input: MemberInput): Promise<Member> {
+    const salt = await bcrypt.genSalt();
+    input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
+
+    try {
+      const result = await this.memberModel.create(input);
+      result.memberPassword = "";
+      return result;
+    } catch (err) {
+      throw new Errors(HttpCode.BAD_REQUEST, Message.USED_NICK_PHONE);
+    }
+  }
+
+  public async memberPostLogin(input: LoginInput): Promise<Member> {
+    const member = await this.memberModel
+      .findOne(
+        { memberNick: input.memberNick },
+        { memberNick: 1, memberPassword: 1 }
+      )
+      .exec();
+    console.log("member:", member);
+    if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
+
+    const isMatch = await bcrypt.compare(
+      input.memberPassword,
+      member.memberPassword
+    );
+
+    if (!isMatch)
+      throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
+
+    return await this.memberModel.findById(member._id).exec();
   }
 }
 

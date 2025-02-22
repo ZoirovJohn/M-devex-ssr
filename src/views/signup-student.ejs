@@ -1,0 +1,90 @@
+<%- include('includes/header') %>
+
+<link rel="stylesheet" type="text/css" href="/css/signup.css" />
+
+<body>
+  <div class="signup-container">
+    <form
+      onsubmit="return validateSignupForm()"
+      action="/member/signup"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <div class="signup-frame" style="width: 650px">
+        <div class="signup-top">
+          <span>Signup</span>
+          <div>Go back <a href="/member" style="color: #483ed7">Home</a></div>
+          <p>
+            Already signed up?
+            <a href="/member/login" style="color: #483ed7">Login</a>
+          </p>
+        </div>
+
+        <div class="sign-input-frame" style="justify-content: space-between">
+          <div class="sign-up-frame">
+            <label>User *</label>
+            <input
+              type="text"
+              name="memberNick"
+              class="member-nick"
+              placeholder="Username"
+              value=""
+            />
+          </div>
+          <div class="sign-up-frame">
+            <label>Email *</label>
+            <input
+              type="text"
+              name="memberEmail"
+              class="member-email"
+              placeholder="Email"
+              value=""
+            />
+          </div>
+        </div>
+        <div class="sign-input-frame" style="justify-content: space-between">
+          <div class="sign-up-frame">
+            <label>Link *</label>
+            <input
+              type="text"
+              name="memberCodeLink"
+              class="member-link"
+              placeholder="Link"
+              value=""
+            />
+          </div>
+        </div>
+        <div class="sign-input-frame" style="justify-content: space-between">
+          <div class="sign-up-frame">
+            <label>Password *</label>
+            <input
+              type="password"
+              name="memberPassword"
+              class="member-password"
+              placeholder="Password"
+              value=""
+            />
+          </div>
+          <div class="sign-up-frame">
+            <label>Repeat password *</label>
+            <input
+              type="password"
+              name="confirmPassword"
+              class="confirm-password"
+              placeholder="Repeat password"
+              value=""
+            />
+          </div>
+        </div>
+
+        <button class="signup-btn btn" name="signup" type="submit">
+          Signup
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script type="text/javascript" src="/js/signup.js"></script>
+</body>
+
+<%- include('includes/footer') %>

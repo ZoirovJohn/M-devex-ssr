@@ -38,6 +38,10 @@ export interface MemberUpdateInput {
   memberPassword?: string;
 }
 
+export interface ExtendedRequest extends Request {
+  member: Member;
+}
+
 export interface OwnerRequest extends Request {
   member: Member;
   session: Session & { member: Member };
