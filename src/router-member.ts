@@ -12,13 +12,13 @@ routerAdmin
 routerAdmin
   .get("/signup", memberController.getSignup)
   .post("/signup", upload.none(), memberController.memberPostSignup);
-routerAdmin.get(
+routerAdmin.post(
   "/logout",
   memberController.verifyAuth,
   memberController.logout
 );
 routerAdmin.get(
-  "/member/detail",
+  "/detail",
   memberController.verifyAuth,
   memberController.getMemberDetail
 );

@@ -68,12 +68,9 @@ memberController.memberPostSignup = async (req: Request, res: Response) => {
 memberController.memberPostLogin = async (req: Request, res: Response) => {
   try {
     console.log("memberPostLogin");
-    console.log("input:", req.body);
-    
     const input: LoginInput = req.body,
       result = await memberService.memberPostLogin(input),
       token = await authService.createToken(result);
-
     res.cookie("accessToken", token, {
       maxAge: AUTH_TIMER * 3600 * 1000,
       httpOnly: false,
