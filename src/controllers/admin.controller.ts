@@ -5,7 +5,7 @@ import {
   LoginInput,
   Member,
   MemberInput,
-  OwnerRequest,
+  MemberRequest,
 } from "../libs/types/member";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 import { MemberType } from "../libs/enums/member.enum";
@@ -43,7 +43,7 @@ adminController.getLogin = (req: Request, res: Response) => {
   }
 };
 
-adminController.postSignup = async (req: OwnerRequest, res: Response) => {
+adminController.postSignup = async (req: MemberRequest, res: Response) => {
   try {
     console.log("postSignup");
     const newMember: MemberInput = req.body;
@@ -67,7 +67,7 @@ adminController.postSignup = async (req: OwnerRequest, res: Response) => {
   }
 };
 
-adminController.postLogin = async (req: OwnerRequest, res: Response) => {
+adminController.postLogin = async (req: MemberRequest, res: Response) => {
   try {
     console.log("postLogin");
     const input: LoginInput = req.body;
@@ -88,7 +88,7 @@ adminController.postLogin = async (req: OwnerRequest, res: Response) => {
   }
 };
 
-adminController.logout = async (req: OwnerRequest, res: Response) => {
+adminController.logout = async (req: MemberRequest, res: Response) => {
   try {
     console.log("logout");
     req.session.destroy(function () {
@@ -109,7 +109,7 @@ adminController.getUsers = async (req: Request, res: Response) => {
     res.render("users", { users: result });
   } catch (err) {
     console.log("Error, getUsers:", err);
-    res.redirect("/admin/login");
+    res.redirect("/admin");
   }
 };
 
@@ -127,7 +127,7 @@ adminController.updateChosenUser = async (req: Request, res: Response) => {
 };
 
 adminController.verifyRestaurant = (
-  req: OwnerRequest,
+  req: MemberRequest,
   res: Response,
   next: NextFunction
 ) => {

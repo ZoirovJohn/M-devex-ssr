@@ -42,7 +42,7 @@ export interface ExtendedRequest extends Request {
   member: Member;
 }
 
-export interface OwnerRequest extends Request {
+export interface MemberRequest extends Request {
   member: Member;
   session: Session & { member: Member };
 }

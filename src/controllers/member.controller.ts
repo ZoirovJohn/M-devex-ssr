@@ -6,6 +6,7 @@ import {
   LoginInput,
   Member,
   MemberInput,
+  MemberRequest,
 } from "../libs/types/member";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 import AuthService from "../models/Auth.service";
@@ -46,7 +47,10 @@ memberController.getLogin = (req: Request, res: Response) => {
   }
 };
 
-memberController.memberPostSignup = async (req: Request, res: Response) => {
+memberController.memberPostSignup = async (
+  req: MemberRequest,
+  res: Response
+) => {
   try {
     console.log("memberPostSignup");
     const input: MemberInput = req.body,
@@ -57,42 +61,62 @@ memberController.memberPostSignup = async (req: Request, res: Response) => {
       httpOnly: false,
     });
 
-    res.status(HttpCode.CREATED).json({ member: result, accessToken: token });
+    req.session.member = result;
+    req.session.save(function () {
+      res.redirect("/member");
+      // res.send("login posted");
+    });
   } catch (err) {
     console.log("Error, memberPostSignup:", err);
-    if (err instanceof Errors) res.status(err.code).json(err);
-    else res.status(Errors.standard.code).json(Errors.standard);
+    const message = err instanceof Errors ? err.message : Errors.standard;
+    res.send(
+      `<script> alert("${message}"); window.location.replace('/signup') </script>`
+    );
   }
 };
 
-memberController.memberPostLogin = async (req: Request, res: Response) => {
+memberController.memberPostLogin = async (
+  req: MemberRequest,
+  res: Response
+) => {
   try {
     console.log("memberPostLogin");
     const input: LoginInput = req.body,
       result = await memberService.memberPostLogin(input),
       token = await authService.createToken(result);
+
     res.cookie("accessToken", token, {
       maxAge: AUTH_TIMER * 3600 * 1000,
       httpOnly: false,
     });
 
-    res.status(HttpCode.OK).json({ member: result, accessToken: token });
+    req.session.member = result;
+    req.session.save(function () {
+      res.redirect("/member");
+      // res.send("login posted");
+    });
   } catch (err) {
     console.log("Error, memberPostLogin:", err);
-    if (err instanceof Errors) res.status(err.code).json(err);
-    else res.status(Errors.standard.code).json(Errors.standard);
+    const message = err instanceof Errors ? err.message : Errors.standard;
+    res.send(
+      `<script> alert("${message}"); window.location.replace('/login') </script>`
+    );
   }
 };
 
-memberController.logout = (req: ExtendedRequest, res: Response) => {
+memberController.logout = (req: MemberRequest, res: Response) => {
   try {
     console.log("logout");
     res.cookie("accessToken", null, { maxAge: 0, httpOnly: true });
-    res.status(HttpCode.OK).json({ logout: true });
+    req.session.destroy(function () {
+      res.redirect("/member");
+    });
   } catch (err) {
     console.log("Error, logout:", err);
-    if (err instanceof Errors) res.status(err.code).json(err);
-    else res.status(Errors.standard.code).json(Errors.standard);
+    const message = err instanceof Errors ? err.message : Errors.standard;
+    res.send(
+      `<script> alert("${message}"); window.location.replace('/') </script>`
+    );
   }
 };
 
