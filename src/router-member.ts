@@ -12,6 +12,15 @@ routerAdmin
 routerAdmin
   .get("/signup", memberController.getSignup)
   .post("/signup", upload.none(), memberController.memberPostSignup);
-routerAdmin.get("/logout", memberController.logout);
+routerAdmin.get(
+  "/logout",
+  memberController.verifyAuth,
+  memberController.logout
+);
+routerAdmin.get(
+  "/member/detail",
+  memberController.verifyAuth,
+  memberController.getMemberDetail
+);
 
 export default routerAdmin;

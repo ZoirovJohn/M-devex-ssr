@@ -22,7 +22,7 @@ memberController.goHome = (req: Request, res: Response) => {
     res.render("home-student");
   } catch (err) {
     console.log("Error, goHome:", err);
-    res.redirect("/admin");
+    res.redirect("/member");
   }
 };
 
@@ -32,7 +32,7 @@ memberController.getSignup = (req: Request, res: Response) => {
     res.render("signup-student");
   } catch (err) {
     console.log("Error, getSignup:", err);
-    res.redirect("/admin");
+    res.redirect("/member");
   }
 };
 
@@ -42,13 +42,13 @@ memberController.getLogin = (req: Request, res: Response) => {
     res.render("login-student");
   } catch (err) {
     console.log("Error, getLogin:", err);
-    res.redirect("/admin");
+    res.redirect("/member");
   }
 };
 
 memberController.memberPostSignup = async (req: Request, res: Response) => {
   try {
-    console.log("signup");
+    console.log("memberPostSignup");
     const input: MemberInput = req.body,
       result: Member = await memberService.memberPostSignup(input),
       token = await authService.createToken(result);
@@ -59,8 +59,7 @@ memberController.memberPostSignup = async (req: Request, res: Response) => {
 
     res.status(HttpCode.CREATED).json({ member: result, accessToken: token });
   } catch (err) {
-    console.log("Error, signup:", err);
-    // instance of, agar err type bz hosil qganladan bosa
+    console.log("Error, memberPostSignup:", err);
     if (err instanceof Errors) res.status(err.code).json(err);
     else res.status(Errors.standard.code).json(Errors.standard);
   }
@@ -68,7 +67,9 @@ memberController.memberPostSignup = async (req: Request, res: Response) => {
 
 memberController.memberPostLogin = async (req: Request, res: Response) => {
   try {
-    console.log("login");
+    console.log("memberPostLogin");
+    console.log("input:", req.body);
+    
     const input: LoginInput = req.body,
       result = await memberService.memberPostLogin(input),
       token = await authService.createToken(result);
@@ -80,7 +81,7 @@ memberController.memberPostLogin = async (req: Request, res: Response) => {
 
     res.status(HttpCode.OK).json({ member: result, accessToken: token });
   } catch (err) {
-    console.log("Error, login:", err);
+    console.log("Error, memberPostLogin:", err);
     if (err instanceof Errors) res.status(err.code).json(err);
     else res.status(Errors.standard.code).json(Errors.standard);
   }
@@ -93,6 +94,22 @@ memberController.logout = (req: ExtendedRequest, res: Response) => {
     res.status(HttpCode.OK).json({ logout: true });
   } catch (err) {
     console.log("Error, logout:", err);
+    if (err instanceof Errors) res.status(err.code).json(err);
+    else res.status(Errors.standard.code).json(Errors.standard);
+  }
+};
+
+memberController.getMemberDetail = async (
+  req: ExtendedRequest,
+  res: Response
+) => {
+  try {
+    console.log("getMemberDetail");
+    const result = await memberService.getMemberDetail(req.member);
+
+    res.status(HttpCode.OK).json(result);
+  } catch (err) {
+    console.log("Error, getMemberDetail:", err);
     if (err instanceof Errors) res.status(err.code).json(err);
     else res.status(Errors.standard.code).json(Errors.standard);
   }

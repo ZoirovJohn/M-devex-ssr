@@ -62,9 +62,8 @@ adminController.postSignup = async (req: OwnerRequest, res: Response) => {
     const message =
       err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
     res.send(
-      `<script> alert("${message}"); window.location.replace('admin/signup') </script>`
+      `<script> alert("${message}"); window.location.replace('signup') </script>`
     );
-    res.send(err);
   }
 };
 
@@ -84,9 +83,8 @@ adminController.postLogin = async (req: OwnerRequest, res: Response) => {
     const message =
       err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
     res.send(
-      `<script> alert("${message}"); window.location.replace('admin/login') </script>`
+      `<script> alert("${message}"); window.location.replace('login') </script>`
     );
-    res.send(err);
   }
 };
 
