@@ -5,9 +5,9 @@
 
 <body>
   <div class="home-container">
-    <div class="navigation-menu">
+    <div class="navigation-menu" role="navigation">
       <ul class="nav justify-content-center">
-        <li class="nav-item" style="cursor: pointer">
+        <li class="nav-item">
           <a class="nav-link active" href="/member">Home</a>
         </li>
         <% if(!member) { %>
@@ -21,12 +21,10 @@
         <li class="nav-item" style="cursor: pointer">
           <a class="nav-link" href="/member/teamInfo">Team-info</a>
         </li>
-        <li
-          class="nav-item"
-          style="cursor: pointer"
-          onclick="return confirm('Do you want to logout?')"
-        >
-          <a class="nav-link" href="/member/logout">Logout</a>
+        <li class="nav-item" style="cursor: pointer">
+          <a class="nav-link" href="javascript:void(0);" onclick="logout()"
+            >Logout</a
+          >
         </li>
         <% } %>
       </ul>

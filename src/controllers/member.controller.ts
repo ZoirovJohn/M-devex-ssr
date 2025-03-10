@@ -56,21 +56,19 @@ memberController.memberPostSignup = async (
     const input: MemberInput = req.body,
       result: Member = await memberService.memberPostSignup(input),
       token = await authService.createToken(result);
+
+    req.session.member = result;
+
     res.cookie("accessToken", token, {
       maxAge: AUTH_TIMER * 3600 * 1000,
       httpOnly: false,
     });
-
-    req.session.member = result;
-    req.session.save(function () {
-      res.redirect("/member");
-      // res.send("login posted");
-    });
+    res.redirect("/member");
   } catch (err) {
     console.log("Error, memberPostSignup:", err);
     const message = err instanceof Errors ? err.message : Errors.standard;
     res.send(
-      `<script> alert("${message}"); window.location.replace('/signup') </script>`
+      `<script> alert("${message}"); window.location.replace('/member/signup') </script>`
     );
   }
 };
@@ -85,21 +83,18 @@ memberController.memberPostLogin = async (
       result = await memberService.memberPostLogin(input),
       token = await authService.createToken(result);
 
+    req.session.member = result;
+
     res.cookie("accessToken", token, {
       maxAge: AUTH_TIMER * 3600 * 1000,
       httpOnly: false,
     });
-
-    req.session.member = result;
-    req.session.save(function () {
-      res.redirect("/member");
-      // res.send("login posted");
-    });
+    res.redirect("/member");
   } catch (err) {
     console.log("Error, memberPostLogin:", err);
     const message = err instanceof Errors ? err.message : Errors.standard;
     res.send(
-      `<script> alert("${message}"); window.location.replace('/login') </script>`
+      `<script> alert("${message}"); window.location.replace('/member/login') </script>`
     );
   }
 };
@@ -107,7 +102,7 @@ memberController.memberPostLogin = async (
 memberController.logout = (req: MemberRequest, res: Response) => {
   try {
     console.log("logout");
-    res.cookie("accessToken", null, { maxAge: 0, httpOnly: true });
+    res.cookie("accessToken", null, { maxAge: 0, httpOnly: true, path: "/" });
     req.session.destroy(function () {
       res.redirect("/member");
     });
@@ -142,7 +137,11 @@ memberController.verifyAuth = async (
   next: NextFunction
 ) => {
   try {
+    console.log("Entered verifyAuth");
+
     const token = req.cookies["accessToken"];
+    console.log("token:", token);
+
     if (token) req.member = await authService.checkAuth(token);
 
     if (!req.member)

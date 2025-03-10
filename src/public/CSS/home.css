@@ -23,6 +23,11 @@
   color: #898071;
 }
 
+.home-container .nav-item .nav-link {
+  color: #e3c08d;
+  background: #222121;
+}
+
 .home-container .navigation-menu {
   position: relative;
   z-index: 10000;
@@ -93,5 +98,5 @@
   margin-top: -16px;
   stroke: currentColor;
   fill: currentColor;
-  color: antiquewhite
+  color: antiquewhite;
 }

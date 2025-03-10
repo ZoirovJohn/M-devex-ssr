@@ -113,3 +113,22 @@ function fitElementToParent(el, padding) {
     animateShape(shapeEls[i]);
   }
 })();
+
+function logout() {
+  fetch("/member/logout", {
+    method: "POST",
+    credentials: "same-origin",
+  })
+    .then((response) => {
+      if (response.ok) {
+        alert("You have logged out successfully.");
+        window.location.href = "/member";
+      } else {
+        console.log("Logout failed");
+      }
+    })
+    .catch((error) => {
+      console.error("Error during logout:", error);
+      alert("An error occurred while logging out. Please try again.");
+    });
+}
