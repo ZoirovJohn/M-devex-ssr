@@ -22,5 +22,16 @@ routerAdmin.get(
   memberController.verifyAuth,
   memberController.getMemberDetail
 );
+routerAdmin.post(
+  "/update",
+  memberController.verifyAuth,
+  memberController.updateMember
+);
+
+routerAdmin.get(
+  "/team-info",
+  memberController.verifyAuth,
+  memberController.teamInfo
+);
 
 export default routerAdmin;

@@ -7,6 +7,7 @@ import {
   Member,
   MemberInput,
   MemberRequest,
+  MemberUpdateInput,
 } from "../libs/types/member";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 import AuthService from "../models/Auth.service";
@@ -131,16 +132,44 @@ memberController.getMemberDetail = async (
   }
 };
 
+memberController.teamInfo = async (req: MemberRequest, res: Response) => {
+  try {
+    console.log("teamInfo");
+    const input: Member = req.session.member;
+    const result = await memberService.getMemberUsers(input);
+    console.log("result:", result);
+
+    res.render("team-info", { user: result });
+  } catch (err) {
+    console.log("Error, teamInfo:", err);
+    res.redirect("/member");
+  }
+};
+
+memberController.updateMember = async (req: ExtendedRequest, res: Response) => {
+  try {
+    console.log("updateMember");
+    console.log("input:", req.body);
+    const input: MemberUpdateInput = req.body;
+
+    const result = await memberService.updateMember(req.member, input);
+
+    res.status(HttpCode.OK).json(result);
+  } catch (err) {
+    console.log("Error, updateMember:", err);
+    if (err instanceof Errors) res.status(err.code).json(err);
+    else res.status(Errors.standard.code).json(Errors.standard);
+  }
+};
+
 memberController.verifyAuth = async (
   req: ExtendedRequest,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    console.log("Entered verifyAuth");
-
     const token = req.cookies["accessToken"];
-    console.log("token:", token);
+    console.log("input2:", req.body);
 
     if (token) req.member = await authService.checkAuth(token);
 

@@ -1,4 +1,4 @@
-.users-container {
+.team-info-container {
   position: relative;
   width: auto;
   height: auto;
@@ -10,20 +10,20 @@
   background: linear-gradient(-45deg, #110303bf, #e37813, #011c1aba, #968383);
 }
 
-.users-container a {
+.team-info-container a {
   text-decoration: none;
   color: #000000;
 }
 
-.users-container .nav-item a {
+.team-info-container .nav-item a {
   color: #e3c08d;
 }
 
-.users-container .nav-item a.disabled {
+.team-info-container .nav-item a.disabled {
   color: #898071;
 }
 
-.users-container .navigation-menu {
+.team-info-container .navigation-menu {
   position: absolute;
   z-index: 10000;
   top: 1%;
@@ -32,7 +32,7 @@
   font-family: monospace;
 }
 
-.users-container .users-frame {
+.team-info-container .users-frame {
   position: relative;
   padding-bottom: 80px;
   width: 100%;
@@ -43,7 +43,7 @@
   align-items: center;
 }
 
-.users-container .users-frame .board {
+.team-info-container .users-frame .board {
   position: relative;
   margin-top: 100px;
   width: 1320px;
@@ -53,28 +53,7 @@
   align-items: center;
 }
 
-.users-container .users-frame .board .btn {
-  .spinner {
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid #3498db;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    animation: spin 1s linear infinite;
-    display: inline-block;
-  }
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-}
-
-.users-container .board .dishes-table {
+.team-info-container .board .dishes-table {
   position: relative;
   width: 100%;
   height: auto;
@@ -84,7 +63,7 @@
   align-items: center;
 }
 
-.users-container .board .user-table {
+.team-info-container .board .user-table {
   position: relative;
   width: 85%;
   height: auto;
@@ -94,7 +73,7 @@
   align-items: center;
 }
 
-.users-container .header-name {
+.team-info-container .header-name {
   font-family: "Source Serif Pro";
   font-style: normal;
   font-weight: 400;
@@ -103,12 +82,12 @@
   color: #ffffff;
 }
 
-.users-container select:focus {
+.team-info-container select:focus {
   min-width: 90%;
   width: auto;
 }
 
-.users-container .spec-select {
+.team-info-container .spec-select {
   position: relative;
   padding: 0px 7px;
   /*width: 100%;*/
@@ -124,7 +103,7 @@
   color: #4f547b;
 }
 
-.users-container table td,
+.team-info-container table td,
 table th {
   text-align: center;
   vertical-align: middle;

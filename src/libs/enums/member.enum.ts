@@ -8,3 +8,9 @@ export enum MemberStatus {
   BLOCK = "BLOCK",
   DELETE = "DELETE",
 }
+
+export enum MemberHwStatus {
+  PROCESS = "PROCESS",
+  APPROVE = "APPROVE",
+  NOTCHECKED = "NOTCHECKED",
+}

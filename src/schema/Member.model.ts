@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { MemberStatus, MemberType } from "../libs/enums/member.enum";
+import { MemberHwStatus, MemberStatus, MemberType } from "../libs/enums/member.enum";
 
 const memberSchema = new Schema(
   {
@@ -13,6 +13,12 @@ const memberSchema = new Schema(
       type: String,
       enum: MemberStatus,
       default: MemberStatus.ACTIVE,
+    },
+
+    memberHwStatus: {
+      type: String,
+      enum: MemberHwStatus,
+      default: MemberHwStatus.NOTCHECKED,
     },
 
     memberNick: {
