@@ -75,7 +75,7 @@ adminController.postLogin = async (req: MemberRequest, res: Response) => {
 
     req.session.member = result;
     req.session.save(function () {
-      res.redirect("/admin");
+      res.redirect("/admin/user/all");
       // res.send("login posted");
     });
   } catch (err) {
@@ -137,7 +137,7 @@ adminController.verifyRestaurant = (
   } else {
     const message = Message.NOT_AUTHENTICATED;
     res.send(
-      `<script> alert("${message}"); window.location.replace('/login'); </script>`
+      `<script> alert("${message}"); window.location.replace('/admin/login'); </script>`
     );
   }
 };
